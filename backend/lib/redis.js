@@ -7,5 +7,4 @@ if (!process.env.UPSTASH_REDIS_URL) {
     "UPSTASH_REDIS_URL is not defined in the environment variables."
   );
 }
-export const client = new Redis(process.env.UPSTASH_REDIS_URL);
-await client.set("too", "bar");
+export const redis = new Redis(process.env.UPSTASH_REDIS_URL);
