@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema(
     },
     isFeatured: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   { timestamps: true }
