@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import CreateProductForm from '../components/CreateProductForm';
 import ProductsList from '../components/ProductsList';
 import AnalyticsTab from '../components/AnalyticsTab';
+import { useProductStore } from '../stores/useProductStore';
 
 const tabs = [
     { id: "create", label: "Create Product", icon: PlusCircle },
@@ -13,9 +14,12 @@ const tabs = [
 ];
 const AdminPage = () => {
     const [activeTab, setActiveTab] = useState("create");
-
+    const { fetchAllProducts } = useProductStore()
+    useEffect(() => {
+        fetchAllProducts();
+    }, [fetchAllProducts])
     return (
-        <div className='min-h-screen  bg-gray-900 text-white relative overflow-hidden'>
+        <div className='min-h-screen  relative overflow-hidden'>
             <motion.h1
                 className='text-4xl font-bold mb-8 text-emerald-400 text-center'
                 initial={{ opacity: 0, y: -20 }}

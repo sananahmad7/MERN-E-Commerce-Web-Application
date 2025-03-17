@@ -54,10 +54,10 @@ const useUserStore = create((set, get) => ({
     } catch (error) {
       // throw error;
       set({ checkingAuth: false, user: null });
+      console.log(error.message);
     }
   },
 }));
 
 //TODO: Implement the axios interceptors for refreshing the access tokens
-
 export default useUserStore;

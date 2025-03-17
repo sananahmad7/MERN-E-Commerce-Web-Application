@@ -1,6 +1,6 @@
 import Product from "../models/product.model.js";
 import cloudinary from "../lib/cloudinary.js";
-
+import { redis } from "../lib/redis.js";
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find({}); //findallProducts
@@ -112,8 +112,8 @@ export const getRecommendedProducts = async (req, res) => {
 export const getProductsByCategory = async (req, res) => {
   const { category } = req.params;
   try {
-    const prodcts = await Product.find({ category });
-    res.json(prodcts);
+    const products = await Product.find({ category });
+    res.json(products);
   } catch (error) {
     console.log("Error in getProductsByCategory controller: ", error.message);
     res.status(500).json({ message: "Server Error: ", error: error.message });
@@ -125,7 +125,7 @@ export const toggleFeaturedProducts = async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
       product.isFeatured = !product.isFeatured;
-      const updatedProduct = await Product.save();
+      const updatedProduct = await product.save();
       //update cache
       await updateFeaturedProductsCache();
       res.json(updatedProduct);
@@ -142,6 +142,6 @@ async function updateFeaturedProductsCache() {
     const featuredProducts = await Product.find({ isFeatured: true }).lean();
     await redis.set("featured_products", JSON.stringify(featuredProducts));
   } catch (error) {
-    console.log("error in update cache");
+    console.error("Error updating Redis cache:", error);
   }
 }
