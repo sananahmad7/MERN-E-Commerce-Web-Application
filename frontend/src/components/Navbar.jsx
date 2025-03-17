@@ -15,6 +15,7 @@ const Navbar = () => {
                     <Link to='/' className='text-2xl font-bold text-emerald-400 items-center space-x-2 flex'>
                         E-Commerce
                     </Link>
+                    <h2 className='hidden lg:block text-emerald-400 font-semibold'>Portfolio Project By Sanan Ahmad</h2>
                     <nav className='flex flex-wrap items-center gap-4'>
                         <Link to={"/"} className='text-gray-300 hover:text-emerald-400 transition duration-300
 					 ease-in-out'>Home</Link>
